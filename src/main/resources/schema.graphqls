@@ -1,0 +1,58 @@
+type Car {
+  id: ID!
+  color: Color!
+  makeName: String!
+  modelName: String!
+  year: Int!
+}
+
+enum Color {
+  BLACK
+  WHITE
+  RED
+  BLUE
+}
+
+type Query {
+  # returns a car with the specified ID
+  car(id: ID!): Car
+
+  # returns 'World'
+  hello: String
+  
+  # returns a list of cars with the specified parameters
+  carList(
+	limit: Int! 
+	sortBy: [String!]! 
+	ascending: Boolean! = true 
+	color: Color
+  ): [Car!]
+  
+  # returns a customer with the specified ID
+  customer(id: ID!): Customer
+}
+
+type Mutation {
+  # creates a new car and returns it
+  carCreate(
+    color: Color!
+    makeId: ID!
+    modelId: ID!
+    year: Int!
+  ): Car
+  
+  # creates a new customer and returns it
+  customerCreate(
+  	firstName: String
+  	lastName: String!
+  	carsInterestedIds: [ID!]!
+  ): Customer
+}
+
+type Customer {
+	id: ID!
+	firstName: String
+	lastName: String!
+	# list of cars that the customer is interested in
+	carsInterested: [Car!]! 
+} 
